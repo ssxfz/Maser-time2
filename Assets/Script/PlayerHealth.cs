@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
+    public Text HealthT;
+    public GameObject PausePanel;
 
     void Start()
     {
@@ -14,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0);
-        Debug.Log("Player HP: " + currentHealth);
+        HealthT.text = ("HP ♥: " + currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -24,7 +27,9 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player died!");
-        // Тут можна додати логіку смерті (рестарт, анімація, меню і т.п.)
+        Time.timeScale = 0f;
+        PausePanel.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
